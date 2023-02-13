@@ -1,0 +1,62 @@
+;Numéro do grupo: 09
+; Aluno 1: Fernando de Souza Oliveira
+; Aluno 2: Marcos Emerim
+;
+INICIO:
+	CLO	
+	MOV BL, [A0]
+	MOV CL, 02
+	SUB BL, CL
+	JS FIM
+DL:
+	MOV DL, 00
+	MOV [9F], DL
+AUX:
+	MOV BL, [A0]
+	DEC BL
+	MOV AL, A0
+	MOV CL, A1
+CONFERE:
+	INC AL
+	PUSH AL
+	INC CL
+	PUSH CL
+	MOV AL, [AL]
+	MOV CL, [CL]
+	CMP CL, AL
+	JS TROCA
+	JZ AUX2
+AUX2:
+	DEC BL
+	JZ CMP
+	POP CL
+	POP AL	
+	JMP CONFERE
+TROCA:
+	POP CL
+	POP AL
+	MOV BL, [AL]
+	MOV DL, [CL]
+	MOV [AL], DL
+	MOV [CL], BL
+	INC DL
+	MOV [9F], DL
+	JMP AUX
+CMP:
+	MOV DL, [9F]
+	CMP DL, 00
+	JZ FIM
+	JMP DL
+FIM:
+	HALT
+;
+ORG A0 DB 08
+DB 0A
+DB 06
+DB 05
+DB 02
+DB FF
+DB FE
+DB FD
+DB FC
+END
